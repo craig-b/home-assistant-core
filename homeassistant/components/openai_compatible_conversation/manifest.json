@@ -1,6 +1,6 @@
 {
-  "domain": "openai_conversation",
-  "name": "OpenAI",
+  "domain": "openai_compatible_conversation",
+  "name": "OpenAI Compatible",
   "after_dependencies": ["assist_pipeline", "intent"],
   "codeowners": ["@balloob"],
   "config_flow": true,

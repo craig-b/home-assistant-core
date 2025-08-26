@@ -1,4 +1,4 @@
-"""The OpenAI Conversation integration."""
+"""The OpenAI Compatible Conversation integration."""
 
 from __future__ import annotations
 
@@ -69,7 +69,7 @@ type OpenAIConfigEntry = ConfigEntry[openai.AsyncClient]
 
 
 async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
-    """Set up OpenAI Conversation."""
+    """Set up OpenAI Compatible Conversation."""
     await async_migrate_integration(hass)
 
     async def render_image(call: ServiceCall) -> ServiceResponse:
@@ -232,8 +232,8 @@ async def async_setup(hass: HomeAssistant, config: ConfigType) -> bool:
     return True
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: OpenAIConfigEntry) -> bool:
-    """Set up OpenAI Conversation from a config entry."""
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
+    """Set up OpenAI Compatible Conversation from a config entry."""
     client = openai.AsyncOpenAI(
         api_key=entry.data[CONF_API_KEY],
         http_client=get_async_client(hass),
@@ -259,8 +259,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: OpenAIConfigEntry) -> bo
     return True
 
 
-async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Unload OpenAI."""
+async def async_unload_entry(hass: HomeAssistant, entry: OpenAIConfigEntry) -> bool:
+    """Unload OpenAI Compatible."""
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
 
@@ -379,7 +379,7 @@ async def async_migrate_integration(hass: HomeAssistant) -> None:
 
 
 async def async_migrate_entry(hass: HomeAssistant, entry: OpenAIConfigEntry) -> bool:
-    """Migrate entry."""
+    """Migrate entry for OpenAI Compatible."""
     LOGGER.debug("Migrating from version %s:%s", entry.version, entry.minor_version)
 
     if entry.version > 2:
@@ -444,7 +444,7 @@ async def async_migrate_entry(hass: HomeAssistant, entry: OpenAIConfigEntry) -> 
 
 
 def _add_ai_task_subentry(hass: HomeAssistant, entry: OpenAIConfigEntry) -> None:
-    """Add AI Task subentry to the config entry."""
+    """Add AI Task subentry to the config entry for OpenAI Compatible."""
     hass.config_entries.async_add_subentry(
         entry,
         ConfigSubentry(
