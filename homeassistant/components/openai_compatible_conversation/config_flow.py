@@ -1,4 +1,4 @@
-"""Config flow for OpenAI Conversation integration."""
+"""Config flow for OpenAI Compatible Conversation integration."""
 
 from __future__ import annotations
 
@@ -74,6 +74,8 @@ from .const import (
     RECOMMENDED_WEB_SEARCH_USER_LOCATION,
     UNSUPPORTED_MODELS,
     UNSUPPORTED_WEB_SEARCH_MODELS,
+    CONF_BASE_URL,
+    RECOMMENDED_BASE_URL,
 )
 
 _LOGGER = logging.getLogger(__name__)
@@ -81,6 +83,7 @@ _LOGGER = logging.getLogger(__name__)
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_API_KEY): str,
+        vol.Required(CONF_BASE_URL, default=RECOMMENDED_BASE_URL): str,
     }
 )
 
@@ -91,13 +94,13 @@ async def validate_input(hass: HomeAssistant, data: dict[str, Any]) -> None:
     Data has the keys from STEP_USER_DATA_SCHEMA with values provided by the user.
     """
     client = openai.AsyncOpenAI(
-        api_key=data[CONF_API_KEY], http_client=get_async_client(hass)
+        api_key=data[CONF_API_KEY], http_client=get_async_client(hass), base_url=data[CONF_BASE_URL]
     )
     await hass.async_add_executor_job(client.with_options(timeout=10.0).models.list)
 
 
-class OpenAIConfigFlow(ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for OpenAI Conversation."""
+class OpenAICompatConfigFlow(ConfigFlow, domain=DOMAIN):
+    """Handle a config flow for OpenAI Compatible Conversation."""
 
     VERSION = 2
     MINOR_VERSION = 4
@@ -154,12 +157,12 @@ class OpenAIConfigFlow(ConfigFlow, domain=DOMAIN):
     ) -> dict[str, type[ConfigSubentryFlow]]:
         """Return subentries supported by this integration."""
         return {
-            "conversation": OpenAISubentryFlowHandler,
-            "ai_task_data": OpenAISubentryFlowHandler,
+            "conversation": OpenAICompatSubentryFlowHandler,
+            "ai_task_data": OpenAICompatSubentryFlowHandler,
         }
 
 
-class OpenAISubentryFlowHandler(ConfigSubentryFlow):
+class OpenAICompatSubentryFlowHandler(ConfigSubentryFlow):
     """Flow for managing OpenAI subentries."""
 
     last_rendered_recommended = False

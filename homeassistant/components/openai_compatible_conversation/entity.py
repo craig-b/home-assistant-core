@@ -1,4 +1,4 @@
-"""Base entity for OpenAI."""
+"""Base entity for OpenAI Compatible."""
 
 from __future__ import annotations
 
@@ -81,7 +81,7 @@ from .const import (
 )
 
 if TYPE_CHECKING:
-    from . import OpenAIConfigEntry
+    from . import OpenAICompatConfigEntry
 
 
 # Max number of back and forth with the LLM to generate a response
@@ -273,13 +273,13 @@ async def _transform_stream(
             raise HomeAssistantError(f"OpenAI response error: {event.message}")
 
 
-class OpenAIBaseLLMEntity(Entity):
-    """OpenAI conversation agent."""
+class OpenAICompatBaseLLMEntity(Entity):
+    """OpenAI Compatible conversation agent."""
 
     _attr_has_entity_name = True
     _attr_name = None
 
-    def __init__(self, entry: OpenAIConfigEntry, subentry: ConfigSubentry) -> None:
+    def __init__(self, entry: OpenAICompatConfigEntry, subentry: ConfigSubentry) -> None:
         """Initialize the entity."""
         self.entry = entry
         self.subentry = subentry

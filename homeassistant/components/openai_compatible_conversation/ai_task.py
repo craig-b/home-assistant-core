@@ -1,4 +1,4 @@
-"""AI Task integration for OpenAI."""
+"""AI Task integration for OpenAI Compatible."""
 
 from __future__ import annotations
 
@@ -12,7 +12,7 @@ from homeassistant.exceptions import HomeAssistantError
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.util.json import json_loads
 
-from .entity import OpenAIBaseLLMEntity
+from .entity import OpenAICompatBaseLLMEntity
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -28,16 +28,16 @@ async def async_setup_entry(
             continue
 
         async_add_entities(
-            [OpenAITaskEntity(config_entry, subentry)],
+            [OpenAICompatTaskEntity(config_entry, subentry)],
             config_subentry_id=subentry.subentry_id,
         )
 
 
-class OpenAITaskEntity(
+class OpenAICompatTaskEntity(
     ai_task.AITaskEntity,
-    OpenAIBaseLLMEntity,
+    OpenAICompatBaseLLMEntity,
 ):
-    """OpenAI AI Task entity."""
+    """OpenAI Compatible AI Task entity."""
 
     _attr_supported_features = (
         ai_task.AITaskEntityFeature.GENERATE_DATA

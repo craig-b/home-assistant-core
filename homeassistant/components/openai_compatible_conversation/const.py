@@ -1,4 +1,4 @@
-"""Constants for the OpenAI Conversation integration."""
+"""Constants for the OpenAI Compatible Conversation integration."""
 
 import logging
 
@@ -8,9 +8,9 @@ from homeassistant.helpers import llm
 DOMAIN = "openai_compatible_conversation"
 LOGGER: logging.Logger = logging.getLogger(__package__)
 
-DEFAULT_CONVERSATION_NAME = "OpenAI Conversation"
-DEFAULT_AI_TASK_NAME = "OpenAI AI Task"
-DEFAULT_NAME = "OpenAI Conversation"
+DEFAULT_CONVERSATION_NAME = "OpenAI Compatible Conversation"
+DEFAULT_AI_TASK_NAME = "OpenAI Compatible AI Task"
+DEFAULT_NAME = "OpenAI Compatible Conversation"
 
 CONF_CHAT_MODEL = "chat_model"
 CONF_CODE_INTERPRETER = "code_interpreter"
@@ -39,6 +39,8 @@ RECOMMENDED_VERBOSITY = "medium"
 RECOMMENDED_WEB_SEARCH = False
 RECOMMENDED_WEB_SEARCH_CONTEXT_SIZE = "medium"
 RECOMMENDED_WEB_SEARCH_USER_LOCATION = False
+CONF_BASE_URL = "base_url"
+RECOMMENDED_BASE_URL = "https://api.openai.com/v1"
 
 UNSUPPORTED_MODELS: list[str] = [
     "o1-mini",
